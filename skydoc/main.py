@@ -15,7 +15,6 @@
 """Documentation generator for Skylark"""
 
 # internal imports
-import gflags
 import jinja2
 import mistune
 import os
@@ -24,6 +23,7 @@ import shutil
 import sys
 import tempfile
 import zipfile
+from absl import flags
 
 from skydoc import common
 from skydoc import load_extractor
@@ -31,33 +31,33 @@ from skydoc import macro_extractor
 from skydoc import rule
 from skydoc import rule_extractor
 
-gflags.DEFINE_string('output_dir', '',
+flags.DEFINE_string('output_dir', '',
     'The directory to write the output generated documentation to if '
     '--zip=false')
-gflags.DEFINE_string('output_file', '',
+flags.DEFINE_string('output_file', '',
     'The output zip archive file to write if --zip=true.')
-gflags.DEFINE_string('format', 'markdown',
+flags.DEFINE_string('format', 'markdown',
     'The output format. Possible values are markdown and html')
-gflags.DEFINE_bool('zip', True,
+flags.DEFINE_bool('zip', True,
     'Whether to generate a ZIP arhive containing the output files. If '
     '--zip is true, then skydoc will generate a zip file, skydoc.zip by '
     'default or as specified by --output_file. If --zip is false, then '
     'skydoc will generate documentation, either in Markdown or HTML as '
     'specifed by --format, in the current directory or --output_dir if set.')
-gflags.DEFINE_string('strip_prefix', '',
+flags.DEFINE_string('strip_prefix', '',
     'The directory prefix to strip from all generated docs, which are '
     'generated in subdirectories that match the package structure of the '
     'input .bzl files. The prefix to strip must be common to all .bzl files; '
     'otherwise, skydoc will raise an error.')
-gflags.DEFINE_bool('overview', False, 'Whether to generate an overview page')
-gflags.DEFINE_string('overview_filename', 'index',
+flags.DEFINE_bool('overview', False, 'Whether to generate an overview page')
+flags.DEFINE_string('overview_filename', 'index',
     'The file name to use for the overview page.')
-gflags.DEFINE_string('link_ext', 'html',
+flags.DEFINE_string('link_ext', 'html',
     'The file extension used for links in the generated documentation')
-gflags.DEFINE_string('site_root', '',
+flags.DEFINE_string('site_root', '',
     'The site root to be prepended to all URLs in the generated documentation')
 
-FLAGS = gflags.FLAGS
+FLAGS = flags.FLAGS
 
 DEFAULT_OUTPUT_DIR = '.'
 DEFAULT_OUTPUT_FILE = 'skydoc.zip'

@@ -2,13 +2,13 @@ licenses(["notice"])  # Apache 2.0
 
 package(default_visibility = ["//visibility:public"])
 
-load("@protobuf//:protobuf.bzl", "py_proto_library")
+load("@org_google_protobuf//:protobuf.bzl", "py_proto_library")
 
 py_proto_library(
     name = "build_pb_py",
     srcs = ["build.proto"],
-    default_runtime = "@protobuf//:protobuf_python",
-    protoc = "@protobuf//:protoc",
+    default_runtime = "@org_google_protobuf//:protobuf_python",
+    protoc = "@org_google_protobuf//:protoc",
 )
 
 py_library(
@@ -77,7 +77,7 @@ py_library(
     srcs = ["rule.py"],
     deps = [
         ":build_pb_py",
-        "//external:mistune",
+        "@org_mistune_mistune//:lib",
     ],
 )
 
@@ -94,7 +94,7 @@ py_binary(
         ":macro_extractor",
         ":rule",
         ":rule_extractor",
-        "//external:gflags",
-        "//external:jinja2",
+        "@org_abseil_absl_py//:lib",
+        "@org_jinja2_jinja2//:lib",
     ],
 )
