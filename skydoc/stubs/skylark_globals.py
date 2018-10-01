@@ -41,6 +41,9 @@ def struct(**kwargs):
 def load(label, *args, **kwargs):
   return None
 
+def go_rule(label, **kwargs):
+  return None
+
 class Label(object):
   def __init__(self, label_string, relative_to_caller_repository=False):
     self.label_string = label_string

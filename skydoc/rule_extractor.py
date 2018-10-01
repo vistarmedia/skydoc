@@ -39,6 +39,7 @@ SKYLARK_STUBS = {
     "repository_rule": skylark_globals.repository_rule,
     "rule": skylark_globals.rule,
     "load": skylark_globals.load,
+    "go_rule": skylark_globals.go_rule,
 }
 """Stubs for Skylark globals to be used to evaluate the .bzl file."""
 
@@ -66,9 +67,11 @@ def create_stubs(skylark_stubs, load_symbols):
   stubs = dict(skylark_stubs)
   for load_symbol in load_symbols:
     if load_symbol.alias:
-      stubs[load_symbol.alias] = ""
+      key = load_symbol.alias
     else:
-      stubs[load_symbol.symbol] = ""
+      key = load_symbol.symbol
+    if key not in stubs:
+      stubs[key] = ""
   return stubs
 
 
